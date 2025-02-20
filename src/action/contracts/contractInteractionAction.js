@@ -124,8 +124,10 @@ export const useDepositTokens = () => {
       // Start loading
       dispatch(setDepositLoading(true));
       let createdCampaignTokenAddress = campaignAddress;
-      if (!agwClient) return;
-      ("");
+      if (!agwClient) {
+        console.log("Agw Client is not available");
+        return;
+      }
 
       if (campaignAddress == "" || campaignAddress == null) {
         createdCampaignTokenAddress = await getTokenAddressFromCampaign(

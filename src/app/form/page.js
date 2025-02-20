@@ -256,6 +256,7 @@ export default function Form() {
 
   const handleDeposit = async () => {
     if (errorMessage) {
+      console.warn("Error in handle deposit", errorMessage);
       return;
     }
     let base64Image = null;

@@ -257,6 +257,18 @@ export default function Form() {
     }
   }, [contractAddressInfo]);
 
+  useEffect(() => {
+    if (agwClient !== undefined) return; // Stop if agwClient is valid
+
+    console.log("campaignAddress is not valid, waiting 5 seconds to reload...");
+
+    const timeout = setTimeout(() => {
+      router.replace(router.asPath); // Soft reload
+    }, 5000);
+
+    return () => clearTimeout(timeout); // Clear timer if agwClient updates
+  }, [agwClient]);
+
   const handleDeposit = async () => {
     if (!agwClient) {
       console.log("Please wait until agwclient is loading");

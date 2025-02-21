@@ -410,6 +410,7 @@ function CampaignDetailContent({ campaign }) {
       console.log("campaignAddress is not valid");
 
       timeout = setTimeout(() => {
+        console.log("re routed");
         router.replace(router.asPath); // Soft reload
       }, 5000);
     }

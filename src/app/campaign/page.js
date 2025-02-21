@@ -403,6 +403,20 @@ function CampaignDetailContent({ campaign }) {
     setCampaignAddress(campaignContractAddress);
   }, [campaignContractAddress]);
 
+  useEffect(() => {
+    let timeout;
+
+    if (!agwClient) {
+      console.log("campaignAddress is not valid");
+
+      timeout = setTimeout(() => {
+        setReload((prev) => !prev); // Soft refresh (triggers re-render)
+      }, 5000);
+    }
+
+    return () => clearTimeout(timeout); // Stops the timer if agwClient updates
+  }, [agwClient]);
+
   if (!campaign && leaderboardDetail && campaignContractAddress == null) {
     return <CustomLoader />;
   }

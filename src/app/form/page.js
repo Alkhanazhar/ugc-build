@@ -27,6 +27,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from "react-redux";
 import CampaignCreated from "../campaign_created/page";
+import { useAbstractClient } from "@abstract-foundation/agw-react";
 
 const modalStyle = {
   position: "absolute",
@@ -133,6 +134,8 @@ export default function Form() {
     },
     [errorMessage]
   );
+
+  const { data: agwClient } = useAbstractClient();
 
   const handleContractAddressBlur = useCallback(() => {
     setIsTouched(true); // Mark the field as touched on blur
@@ -255,6 +258,10 @@ export default function Form() {
   }, [contractAddressInfo]);
 
   const handleDeposit = async () => {
+    if (!agwClient) {
+      console.log("Please wait until agwclient is loading");
+      return;
+    }
     if (errorMessage) {
       console.warn("Error in handle deposit", errorMessage);
       return;
@@ -747,7 +754,7 @@ export default function Form() {
                 />
               ) : ( */}
                   <CustomText
-                    text="DEPOSIT MEMECOIN!"
+                    text={!agwClient ? "Loading..." : "DEPOSIT MEMECOIN!"}
                     fontSize="20px"
                     fontFamily="Skrapbook"
                     fontStroke="5px"

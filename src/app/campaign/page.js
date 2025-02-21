@@ -45,6 +45,7 @@ import html2canvas from "html2canvas";
 import CountdownTimer from "@/components/GeneralComponents/countDownTimer";
 import Link from "next/link";
 import { useAbstractClient } from "@abstract-foundation/agw-react";
+import { useRouter } from "next/router";
 
 const modalStyle = {
   position: "absolute",
@@ -222,7 +223,7 @@ function CampaignDetailContent({ campaign }) {
             sx={{ ...buttonStyles, backgroundColor: "#B74AFF" }}
           >
             <CustomText
-              text="Pool in!"
+              text={agwClient ? "Pool in!" : "loading..."}
               fontSize="30px"
               fontFamily="Skrapbook"
               fontStroke="6px"
@@ -410,7 +411,6 @@ function CampaignDetailContent({ campaign }) {
     campaign["start_time"],
     campaign["end_time"]
   );
-
   return (
     <div>
       <Modal
@@ -707,10 +707,12 @@ function CampaignDetailContent({ campaign }) {
                   poolValue,
                   campaign
                 );
-                p;
+                if (!agwClient) {
+                  console.log("campaignAddress is not valid");
+                  return;
+                }
                 dispatch(setDepositLoading(true));
                 let createdCampaignTokenAddress = campaign.token_contract;
-                if (!agwClient) return;
 
                 console.log("campaign address " + campaignAddress);
 

@@ -403,21 +403,6 @@ function CampaignDetailContent({ campaign }) {
     setCampaignAddress(campaignContractAddress);
   }, [campaignContractAddress]);
 
-  useEffect(() => {
-    let timeout;
-
-    if (!agwClient) {
-      console.log("campaignAddress is not valid");
-
-      timeout = setTimeout(() => {
-        console.log("re routed");
-        router.replace(router.asPath); // Soft reload
-      }, 5000);
-    }
-
-    return () => clearTimeout(timeout); // Stops the timer if agwClient updates
-  }, [agwClient]);
-
   if (!campaign && leaderboardDetail && campaignContractAddress == null) {
     return <CustomLoader />;
   }
@@ -426,6 +411,7 @@ function CampaignDetailContent({ campaign }) {
     campaign["start_time"],
     campaign["end_time"]
   );
+
   return (
     <div>
       <Modal
@@ -726,6 +712,10 @@ function CampaignDetailContent({ campaign }) {
                   console.log("campaignAddress is not valid");
                   return;
                 }
+                console.log(
+                  agwClient,
+                  "_______________________________--------------------"
+                );
                 dispatch(setDepositLoading(true));
                 let createdCampaignTokenAddress = campaign.token_contract;
 

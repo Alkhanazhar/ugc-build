@@ -263,7 +263,10 @@ export default function Form() {
     console.log("campaignAddress is not valid, waiting 5 seconds to reload...");
 
     const timeout = setTimeout(() => {
-      router.replace(router.asPath); // Soft reload
+      console.log(
+        "_____________________________________________________________"
+      );
+      window.location.reload();
     }, 5000);
 
     return () => clearTimeout(timeout); // Clear timer if agwClient updates

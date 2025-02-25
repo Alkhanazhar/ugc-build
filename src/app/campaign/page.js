@@ -222,12 +222,15 @@ function CampaignDetailContent({ campaign }) {
           <Button
             size="small"
             onClick={() => {
+              if (!agwClient) {
+                return;
+              }
               handleOpen();
             }}
             sx={{ ...buttonStyles, backgroundColor: "#B74AFF" }}
           >
             <CustomText
-              text={"POOL IN!"}
+              text={agwClient ? "POOL IN!" : "Loading..."}
               fontSize="30px"
               fontFamily="Skrapbook"
               fontStroke="6px"

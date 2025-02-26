@@ -38,7 +38,6 @@ import { useGetAuthToken } from "@/action/authAction";
 import { CustomLoader } from "@/components/GeneralComponents/customLoader";
 import { calculateTimeRemaining, formatNumber } from "@/action/generalAction";
 import { parseAbi } from "viem";
-
 import { ExtendModal } from "@/components/campaign/extendModal";
 import { setLeaderboard } from "@/redux/slice/leaderboardSlice";
 import html2canvas from "html2canvas";
@@ -419,7 +418,7 @@ function CampaignDetailContent({ campaign }) {
     campaign["end_time"]
   );
 
-  const { data: agwClient } = useAbstractClient().data;
+  const { data: agwClient } = useAbstractClient();
 
   return (
     <div>

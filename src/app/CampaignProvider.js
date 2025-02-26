@@ -1,3 +1,4 @@
+"use client";
 import { useHomeAction } from "@/action/homeAction";
 import { useCallback, useEffect, useState } from "react";
 

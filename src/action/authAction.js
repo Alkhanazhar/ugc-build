@@ -9,8 +9,7 @@ import { useLoginWithAbstract } from "@abstract-foundation/agw-react";
 
 export const useGetAuthToken = () => {
   const dispatch = useDispatch();
-  const { sendMeRequest, sendGetTwitterSessionRequest } =
-    useWebSocket();
+  const { sendMeRequest, sendGetTwitterSessionRequest } = useWebSocket();
   const [error, setErrorValue] = useState("");
   const [wallet, setWalletValue] = useState("");
   const { address, status } = useAccount();

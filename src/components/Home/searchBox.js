@@ -80,7 +80,7 @@ export const useSearchFilter = (initialCampaigns) => {
 
 export const useCampaignFilter = (initialCampaigns) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOption, setSelectedOption] = useState("GRADUATING");
+  const [selectedOption, setSelectedOption] = useState("LIVE");
 
   // Predefined status options
   const statusOptions = ["All", "LIVE", "STARTING", "GRADUATING"];

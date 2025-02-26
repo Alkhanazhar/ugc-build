@@ -83,9 +83,9 @@ function CampaignDetailContent({ campaign }) {
 
   // State
   const [loading, setLoading] = useState(false);
-  const [poolValue, setPoolValue] = useState(() => {
-    return localStorage.getItem("poolValue") || "";
-  });
+  const [poolValue, setPoolValue] = useState(
+    localStorage.getItem("poolValue") || ""
+  );
 
   const [open, setOpen] = useState(false);
   const [extendOpen, setExtendOpen] = useState(false);
@@ -666,11 +666,9 @@ function CampaignDetailContent({ campaign }) {
               value={poolValue}
               disable={false}
               onChange={(e) => {
-                const handleChange = (e) => {
-                  const value = e.target.value;
-                  setPoolValue(value);
-                  localStorage.setItem("poolValue", value);
-                };
+                const value = e.target.value;
+                setPoolValue(value);
+                localStorage.setItem("poolValue", value);
               }}
             />
           </Box>

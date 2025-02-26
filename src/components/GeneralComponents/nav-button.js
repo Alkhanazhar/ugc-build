@@ -30,6 +30,8 @@ export const NavButton = ({ hidden }) => {
       dispatch(setWallet(storedWallet));
       setWalletAddress(truncateWalletAddress(storedWallet));
       dispatch(setAuthToken(storedAuthToken));
+      login();
+      console.log(status, "status");
       return;
     }
   }, []);

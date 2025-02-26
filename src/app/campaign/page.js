@@ -419,7 +419,7 @@ function CampaignDetailContent({ campaign }) {
     campaign["end_time"]
   );
 
-  const { data: agwClient } = useAbstractClient();
+  const { data: agwClient } = useAbstractClient().data;
 
   return (
     <div>

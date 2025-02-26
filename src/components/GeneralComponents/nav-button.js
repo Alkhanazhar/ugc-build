@@ -21,6 +21,10 @@ export const NavButton = ({ hidden }) => {
   const { login, logout } = useLoginWithAbstract();
 
   const { address, status } = useAccount();
+  console.log(
+    status,
+    "status________________________________________________- "
+  );
 
   useEffect(() => {
     const storedWallet = localStorage.getItem("wallet");

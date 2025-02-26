@@ -28,6 +28,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useDispatch, useSelector } from "react-redux";
 import CampaignCreated from "../campaign_created/page";
 import { useAbstractClient } from "@abstract-foundation/agw-react";
+import { useAccount } from "wagmi";
 
 const modalStyle = {
   position: "absolute",
@@ -97,6 +98,7 @@ export default function Form() {
     (state) => state.contractAddressInfo?.isCampaignCreated || false
   );
   const [isFileUploaded, setIsFileUploaded] = useState(false); // State to track file upload
+  const { status } = useAccount();
   const { data: agwClient } = useAbstractClient();
 
   const handleFileChange = (file) => {
@@ -297,6 +299,21 @@ export default function Form() {
       console.log("Image uploaded", image);
     }
   };
+  useEffect(() => {
+    if (agwClient !== undefined || status !== "connected") return;
+    // Stops if agwClient is valid or status is not "connected"
+
+    console.log("campaignAddress is not valid, waiting 5 seconds to reload...");
+
+    const timeout = setTimeout(() => {
+      console.log(
+        "_____________________________________________________________refreshing"
+      );
+      window.location.reload();
+    }, 5000);
+
+    return () => clearTimeout(timeout); // Clear timeout if dependencies change
+  }, [agwClient, status]); // Add status as a dependency
   return (
     <div>
       <Modal

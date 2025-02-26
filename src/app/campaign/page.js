@@ -46,6 +46,7 @@ import Link from "next/link";
 import { useAbstractClient } from "@abstract-foundation/agw-react";
 import { CONTRACT_ABI } from "@/action/contracts/abi";
 import PoolInButton from "@/components/campaign/poolInButton";
+import { useAccount } from "wagmi";
 
 const modalStyle = {
   position: "absolute",
@@ -78,10 +79,14 @@ function CampaignDetailContent({ campaign }) {
   } = useWebSocket();
   const { connectWallet, handleOpenTwitterConnectWindow } = useGetAuthToken();
   const dispatch = useDispatch();
+  const { address, status } = useAccount();
 
   // State
   const [loading, setLoading] = useState(false);
-  const [poolValue, setPoolValue] = useState("");
+  const [poolValue, setPoolValue] = useState(() => {
+    return localStorage.getItem("poolValue") || "";
+  });
+
   const [open, setOpen] = useState(false);
   const [extendOpen, setExtendOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -660,7 +665,13 @@ function CampaignDetailContent({ campaign }) {
               placeholder={"AMOUNT (MIN 1000)"}
               value={poolValue}
               disable={false}
-              onChange={(e) => setPoolValue(e.target.value)}
+              onChange={(e) => {
+                const handleChange = (e) => {
+                  const value = e.target.value;
+                  setPoolValue(value);
+                  localStorage.setItem("poolValue", value);
+                };
+              }}
             />
           </Box>
           <Box display="flex" justifyContent="center">

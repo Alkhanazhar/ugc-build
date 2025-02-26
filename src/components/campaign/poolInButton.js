@@ -9,12 +9,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CustomText from "../GeneralComponents/customText";
 import { parseAbi } from "viem";
+import { useAccount } from "wagmi";
 
 const PoolInButton = ({ campaignAddress, poolValue, campaign }) => {
   const { data: agwClient } = useAbstractClient();
   console.log(agwClient);
   const { sendGetCampaignAddressRequest, sendCampaignDepositedRequest } =
     useWebSocket();
+
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,6 +26,8 @@ const PoolInButton = ({ campaignAddress, poolValue, campaign }) => {
     }
   }, [agwClient]);
   const handlePoolIn = async () => {
+    localStorage.setItem("poolValue", "");
+
     console.log(
       "campaignAddress in modal ",
       campaignAddress,
@@ -101,6 +105,23 @@ const PoolInButton = ({ campaignAddress, poolValue, campaign }) => {
   //               poolValue={poolValue}
   //               key={"pool in button"}
   //             />
+  const { status } = useAccount();
+  useEffect(() => {
+    console.log(status, "status in pool in");
+    if (agwClient !== undefined || status !== "connected") return;
+    // Stops if agwClient is valid or status is not "connected"
+
+    console.log("campaignAddress is not valid, waiting 5 seconds to reload...");
+
+    const timeout = setTimeout(() => {
+      console.log(
+        "_____________________________________________________________"
+      );
+      window.location.reload();
+    }, 5000);
+
+    return () => clearTimeout(timeout); // Clear timeout if dependencies change
+  }, [agwClient, status]); // Add status as a dependency
   return (
     <Box display="flex" justifyContent="center">
       <Button
